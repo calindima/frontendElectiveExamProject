@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Materialize CSS Stuff -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="http://petlatkea.dk/2018/front/foobar.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-wrapper grey darken-4">
+            <a href="#!" class="brand-logo center">FooBar</a>
+            <a href="#" data-target="mobile" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="#" class="activateBeerMenu">Beer menu</a>
+                </li>
+                <li>
+                    <a href="#" class="activateOrderMenu">Ongoing orders</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile">
+        <li>
+            <a href="#" class="activateBeerMenu">Beer menu</a>
+        </li>
+        <li>
+            <a href="#" class="activateOrderMenu">Ongoing orders</a>
+        </li>
+    </ul>
+<div class="container">
+        <section id="statistics" class="card">
+            <h2 class="center">Statistics</h2>
+            <div id="stats">
+                <div id="peopleInQueue">People currently in queue:
+                    <span>Loading...</span>
+                </div>
+                <div id="totalCustomersServed">Total customers served:
+                    <span>Loading...</span>
+                </div>
+                <div id="totalBeersServed">Total beers served:
+                    <span>Loading...</span>
+                </div>
+                <div id="mostPopularBeer">Most popular beer:
+                    <span>Loading...</span>
+                </div>
+                <div id="bestEmployee">Employee of the day:
+                    <span>Loading...</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="staffInfo" class="card">
+            <h2 class="center">Our wonderful bartenders</h2>
+            <div id="bartenders">Loading...</div>
+        </section>
+
+    <section id="tapInfo" class="card">
+        <h2>Tap status</h2>
+        <div id="taps">Loading...</div>
+    </section>
+
+    <!-- <section id="kegInfo">
+        <h2>Storage</h2>
+        <div id="kegs">Loading...</div>
+    </section> -->
+</div>
+    <!-- Beer menu -->
+    <section id="beerMenu" class="white">
+        <a href="#" class="btn right" id="closeBeerMenu">&times;</a>
+        <h2 class="center teal-text">Our beer menu</h2>
+        <ul class="collection" id="beerCategoryList">
+            <a href="#!" class="beer-category collection-item">All</a>
+        </ul>
+
+        <div id="beerTypes"></div>
+    </section>
+
+    <!-- Ongoing orders menu-->
+    <section id="currentOrders" class="lime darken-4">
+        <a href="#" class="btn left red white-text" id="closeOrderMenu">&times;</a>
+        <h2 class="center white-text">Ongoing orders</h2>
+        <div id="orders">Loading...</div>
+    </section>
+
+    
+
+    <!-- Beer template for adding beer types dynamically -->
+    <template id="beerTypeTemplate">
+        <article class="beer-type card" data-category="">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="label activator" src="">
+            </div>
+            <div class="card-content">
+                <h3 class="name card-title activator teal-text">
+                    <span></span>
+                    <i class="material-icons right">more_vert</i>
+                </h3>
+
+                <div class="short-description">
+                    <h6 class="category">Category:
+                        <span></span>
+                    </h6>
+                    <h6 class="alcohol-lvl">Alcohol:
+                        <span></span>%</h6>
+                    <p class="overall-impression">Overall impression:
+                        <span></span>
+                    </p>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <h3 class="name card-title teal-text">
+                    <span></span>
+                    <i class="material-icons right">close</i>
+                </h3>
+                <div class="long-description">
+                    <p class="appearance">Appearance:
+                        <span></span>
+                    </p>
+                    <p class="mouth-feel">Mouth feel:
+                        <span></span>
+                    </p>
+                    <p class="aroma">Aroma:
+                        <span></span>
+                    </p>
+                    <p class="flavor">Flavor:
+                        <span></span>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!-- Beer category template for a beer selection menu -->
+
+    <template id="beerCategoryTemplate">
+        <a href="#!" class="beer-category collection-item"></a>
+    </template>
+
+    <!-- Bartender template -->
+
+    <template id="bartenderTemplate">
+        <article class="bartender card-panel teal">
+            <h3 class="name white-text"></h3>
+            <p class="status white-text"></p>
+            <p class="details white-text"></p>
+        </article>
+    </template>
+
+    <!-- Current orders template -->
+    <template id="orderTemplate">
+        <article class="order card-panel yellow accent-1">
+            <h4 class="customer">Customer #
+                <span></span>
+            </h4>
+            <ul class="orderList"></ul>
+        </article>
+    </template>
+
+    <!-- Tap template -->
+    <template id="tapTemplate">
+        <article class="tap">
+            <h5 class="name"></h5>
+            <p class="level-capacity"></p>
+            <p class="info"></p>
+        </article>
+    </template>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
