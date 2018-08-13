@@ -7,19 +7,11 @@ let queueOverTime = [];
 
 let dashboard = JSON.parse(FooBar.getData());
 
-// // Declaring and setting an object as a table to count beers sold from each type 
-// const allBeersCount = {};
-// dashboard.beertypes.forEach(beertype => allBeersCount[`${beertype.name}`] = 0);
-
 const allBeersCount = createCounter(dashboard.beertypes);
-
-// // Object used to count the most productive bartender
-// const allBartendersCount = {};
-// dashboard.bartenders.forEach(bartender => allBartendersCount[`${bartender.name}`] = 0);
 
 const allBartendersCount = createCounter(dashboard.bartenders);
 
-// DRY method
+// Helper function to create objects used to count the beer sales and productivity of bartenders
 function createCounter(stuff) {
     const counter = {};
     stuff.forEach(item => counter[`${item.name}`] = 0);
@@ -27,16 +19,22 @@ function createCounter(stuff) {
 }
 
 // Interval for refreshing data
-setInterval(() => {
+setInterval(refreshBarInfo, 5000);
+
+// Show the beer menu
+showBeerMenu();
+
+// Function used to initialize bar with refreshed data.
+// Core function containing all the helper functions.
+
+function refreshBarInfo(){
     dashboard = JSON.parse(FooBar.getData());
 
     queueOverTime.push(dashboard.queue.length);
     // console.log(dashboard);
     peopleInQueue(dashboard);
     totalServed(dashboard);
-    //mostPopularBeer();
     onlyTheBest('mostPopularBeer', allBeersCount, () => null);
-    //showBestEmployee(dashboard.bartenders);
     onlyTheBest('bestEmployee', allBartendersCount, () => {
         dashboard.bartenders.forEach(b => {
             if (b.statusDetail === 'receivePayment') {
@@ -48,7 +46,7 @@ setInterval(() => {
     showOrders(dashboard.serving);
     showTapInfo(dashboard);
     // showStorage(dashboard.storage);
-}, 5000);
+}
 
 // Show beer menu
 function showBeerMenu() {
@@ -134,7 +132,7 @@ function showBeerMenu() {
         allBeerCategoryItems.forEach(child => child.classList.remove('hide'));
     });
 }
-showBeerMenu();
+
 
 //  Show People in queue
 function peopleInQueue(dashboard) {
@@ -158,43 +156,6 @@ function totalServed(dashboard) {
     document.querySelector('#totalCustomersServed span').textContent = lastCustomerServed;
     document.querySelector('#totalBeersServed span').textContent = totalBeersServed;
 }
-
-// //  Show Most popular beer
-// function mostPopularBeer() {
-//     // console.log(allBeersCount);
-//     // TODO: Make the object count how many beers were sold from each type *use Object.keys() / Array.includes()
-//     // TODO: Make the function return the type with the highest count
-//     const popularBeerContainer = document.querySelector('#mostPopularBeer span');
-//     let beerCountArray = Object.values(allBeersCount);
-//     // popularBeerContainer.textContent = ''; // I wanted to show one or more popular beers but couldn't think of how to manage the text for multiple beers
-//     Object.keys(allBeersCount).forEach(key => {
-//         if (allBeersCount[`${key}`] == Math.max(...beerCountArray)) {
-//             popularBeerContainer.textContent = key;
-//         }
-//     })
-//     // console.log(beerCountArray);
-//     // console.log(Math.max(...beerCountArray));
-// }
-
-// //  Show Best employee
-
-// function showBestEmployee(bartenders) {
-//     bartenders.forEach(b => {
-//         if (b.statusDetail === 'receivePayment') {
-//             allBartendersCount[`${b.name}`]++;
-//         }
-//     })
-//     const bestEmployeeContainer = document.querySelector('#bestEmployee span');
-//     let employeeCountArray = Object.values(allBartendersCount);
-
-//     Object.keys(allBartendersCount).forEach(key => {
-//         if (allBartendersCount[`${key}`] == Math.max(...employeeCountArray)) {
-//             bestEmployeeContainer.textContent = key;
-//         }
-//     });
-// }
-
-// DRY method for popular beer / bartender
 
 function onlyTheBest(path, countingObject, callback) {
     callback();
@@ -292,6 +253,8 @@ function showTapInfo(dashboard) {
     });
 }
 
+
+
 // function showStorage(storage) {
 //     // console.log(storage);
 //     const kegTemplate = document.querySelector('#kegTemplate').content;
@@ -322,4 +285,5 @@ function showTapInfo(dashboard) {
     document.querySelector('#closeOrderMenu').addEventListener('click', ()=>{
         document.querySelector('#currentOrders').style.right = '-1000px';
     })
-//  Maybe more...
+
+    //  Maybe more...
