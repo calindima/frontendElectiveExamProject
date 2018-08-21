@@ -80,7 +80,7 @@ function showBeerMenu() {
 
         // beer info to be changed for each clone
         beerArticle.dataset.category = b.category.toLowerCase();
-        beerLabel.setAttribute('src', `imgs/${b.label.split('.')[0]}.jpg`);
+        beerLabel.setAttribute('src', `assets/imgs/${b.label.split('.')[0]}.jpg`);
         beerName.forEach(bn => bn.textContent = b.name);
         beerCategory.textContent = b.category;
         beerAlcLvl.textContent = b.alc;
